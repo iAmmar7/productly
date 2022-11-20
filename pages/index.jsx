@@ -17,7 +17,7 @@ function Home(props) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className='text-center border'>
+      <div className=''>
         <h1>Welcome to Productly!</h1>
       </div>
     </Fragment>
