@@ -1,21 +1,9 @@
-import { useQuery } from '@apollo/client';
+import Listing from './Listing';
 
-import { PRODUCTS } from '../graphql/queries';
+function Products(props) {
+  const { products } = props;
 
-function Products() {
-  const { data } = useQuery(PRODUCTS, {
-    variables: {
-      store: 'US',
-      offset: 0,
-      categoryId: 4209,
-      limit: 48,
-    },
-    fetchPolicy: 'network-only',
-  });
-
-  console.log('client', data);
-
-  return <div>Products</div>;
+  return <Listing products={products} />;
 }
 
 export default Products;

@@ -3,11 +3,10 @@ import { Fragment } from 'react';
 
 import client from '../apollo-client';
 import { PRODUCTS } from '../graphql/queries';
+import Products from '../components/Products';
 
 function Home(props) {
   const { products } = props;
-
-  console.log('server', products);
 
   return (
     <Fragment>
@@ -17,9 +16,9 @@ function Home(props) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className=''>
-        <h1>Welcome to Productly!</h1>
-      </div>
+      {/* <div className='container w-full mx-auto pt-16 min-h-screen'> */}
+      <Products products={products} />
+      {/* </div> */}
     </Fragment>
   );
 }
@@ -29,7 +28,7 @@ export default Home;
 export async function getServerSideProps() {
   const products = await client.query({
     query: PRODUCTS,
-    variables: { store: 'US', offset: 0, categoryId: 4209, limit: 48 },
+    variables: { store: 'US', offset: 0, categoryId: 4209, limit: 24 },
     fetchPolicy: 'network-only',
   });
 
