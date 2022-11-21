@@ -1,5 +1,6 @@
 import { memo, useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 import { Icon } from '../Icon';
 
@@ -10,7 +11,14 @@ function ProductCard(props) {
   const handleToggleFavorites = () => setIsFavorite(!isFavorite);
 
   return (
-    <li className='rounded-sm shadow-2xl cursor-pointer group relative overflow-hidden'>
+    <motion.li
+      className='rounded-md shadow-2xl cursor-pointer group relative overflow-hidden'
+      initial={{ scale: 0 }}
+      animate={{ scale: 1, transition: { ease: 'easeInOut', duration: 0.5 } }}
+      exit={{ scale: 0, transition: { ease: 'easeInOut', duration: 0.5 } }}
+      viewport={{ once: true }}
+      layout
+    >
       <figure className='h-[420px] relative block overflow-hidden'>
         <Image
           src={`https://${data.imageUrl}`}
@@ -18,7 +26,7 @@ function ProductCard(props) {
           fill
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           priority
-          className='rounded-sm transition-transform duration-1000 ease-in-out group-hover:scale-125 overflow-hidden'
+          className='rounded-md transition-transform duration-1000 ease-in-out group-hover:scale-125 overflow-hidden'
         />
         <figcaption>{data.name}</figcaption>
       </figure>
@@ -46,7 +54,7 @@ function ProductCard(props) {
           )}
         </button>
       </span>
-    </li>
+    </motion.li>
   );
 }
 
