@@ -6,12 +6,19 @@ import { Loader } from '../Loader';
 import { SelectBox } from '../SelectBox';
 import Listing from './Listing';
 
+const FILTERS = [
+  { name: 'Newest first', value: 'freshness' },
+  { name: 'Price low to high', value: 'pricedesc' },
+  { name: 'Price high to low', value: 'priceasc' },
+];
+
 function Products(props) {
   const { products } = props;
   const [isLoading, setIsLoading] = useState(false);
+  const [grid, setGrid] = useState(4);
   const router = useRouter();
   const {
-    query: { limit = 24, page = 1 },
+    query: { limit = 24, page = 1, filter = 'freshness' },
   } = router;
 
   const animationStart = () => setIsLoading(true);
@@ -38,12 +45,36 @@ function Products(props) {
     router.replace({ pathname: '/', query: { ...router.query, page } });
   }, []);
 
+  const onPerRowChange = useCallback((newGrid) => {
+    setGrid(newGrid);
+  }, []);
+
+  const onFilterChange = useCallback((newFilter) => {
+    router.replace({ pathname: '/', query: { ...router.query, filter: newFilter.value } });
+  }, []);
+
   return (
-    <div className='relative pt-10 pb-6 px-2'>
+    <div className='relative pb-6 px-2'>
       {isLoading && <Loader />}
-      <section>
+      <section className='flex items-center justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
+        <h2 className='sr-only'>Product filters</h2>
+        <div className='hidden lg:flex items-center gap-x-2'>
+          <span>Product</span>
+          <SelectBox value={grid} options={[1, 2, 3, 4, 5]} onChange={onPerRowChange} />
+          <span>per row</span>
+        </div>
+        <div className='hidden lg:flex items-center gap-x-2'>
+          <span>Sort by</span>
+          <SelectBox
+            value={FILTERS.find((filt) => filt.value === filter)}
+            options={FILTERS}
+            onChange={onFilterChange}
+          />
+        </div>
+      </section>
+      <section className='mt-10'>
         <h2 className='sr-only'>Product listing</h2>
-        <Listing products={products} />
+        <Listing products={products} grid={grid} />
       </section>
       <section className='flex items-center justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
         <h2 className='sr-only'>Pagination</h2>

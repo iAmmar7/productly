@@ -26,7 +26,7 @@ function ProductCard(props) {
           fill
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           priority
-          className='rounded-md transition-transform duration-1000 ease-in-out group-hover:scale-125 overflow-hidden'
+          className='rounded-md transition-transform duration-1000 ease-in-out group-hover:scale-125 overflow-hidden object-center'
         />
         <figcaption>{data.name}</figcaption>
       </figure>

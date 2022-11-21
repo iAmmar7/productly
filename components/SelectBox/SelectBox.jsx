@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import clsx from 'clsx';
 
 import { Icon } from '../Icon';
-import { isEmpty } from '../../lib/utils';
+import { isEmpty, isObject } from '../../lib/utils';
 
 const SelectBox = (props) => {
   const { value: valueProps, options, onChange, menuPlacement = 'bottom' } = props;
@@ -37,6 +37,9 @@ const SelectBox = (props) => {
     handleToggle();
   };
 
+  const modValue = isObject(value) ? value.value : value;
+  const modName = isObject(value) ? value.name : value;
+
   return (
     <div ref={ref}>
       <div className='relative'>
@@ -48,7 +51,7 @@ const SelectBox = (props) => {
           aria-labelledby='listbox-label'
           onClick={handleToggle}
         >
-          <span className='truncate flex items-center'>{value ?? 'Select'}</span>
+          <span className='truncate'>{modName ?? 'Select'}</span>
           <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none flex-col'>
             <Icon icon='ri-arrow-drop-up-line' className='mt-[2px]' />
             <Icon icon='ri-arrow-drop-down-line' className='-mt-4' />
@@ -61,7 +64,7 @@ const SelectBox = (props) => {
               animate={{ opacity: 1, transition: { ease: 'easeInOut', duration: 0.2 } }}
               exit={{ opacity: 0, transition: { ease: 'easeInOut', duration: 0.2 } }}
               className={clsx(
-                'absolute z-10 my-1 w-full bg-white shadow-lg max-h-80 rounded-md text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+                'absolute z-10 my-1 min-w-full bg-white shadow-lg max-h-80 rounded-md text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
                 menuPlacement === 'top' && 'bottom-10'
               )}
               role='listbox'
@@ -74,21 +77,25 @@ const SelectBox = (props) => {
                 }
               >
                 {!isEmpty(options) &&
-                  options.map((opt) => (
-                    <li
-                      key={opt}
-                      className='text-gray-900 cursor-pointer select-none relative py-2 pl-3 pr-9 flex items-center hover:bg-gray-50 transition-all duration-150 ease-in-out rounded-md'
-                      id={opt}
-                      role='option'
-                      tabIndex={1}
-                      aria-selected={value === opt}
-                      onClick={handleChange(opt)}
-                    >
-                      <span className={clsx('font-normal truncate min-w-max', opt === value && 'text-primary')}>
-                        {opt}
-                      </span>
-                    </li>
-                  ))}
+                  options.map((opt) => {
+                    const modOptValue = isObject(opt) ? opt.value : opt;
+                    const modOptName = isObject(opt) ? opt.name : opt;
+                    return (
+                      <li
+                        key={modOptValue}
+                        className='text-gray-900 cursor-pointer select-none relative py-2 px-3 flex items-center hover:bg-gray-50 transition-all duration-150 ease-in-out rounded-md'
+                        id={modOptValue}
+                        role='option'
+                        tabIndex={1}
+                        aria-selected={modValue === modOptValue}
+                        onClick={handleChange(opt)}
+                      >
+                        <span className={clsx('min-w-max', modOptValue === modValue && 'text-primary')}>
+                          {modOptName}
+                        </span>
+                      </li>
+                    );
+                  })}
               </ol>
             </motion.div>
           )}

@@ -27,7 +27,7 @@ export default Home;
 
 export async function getServerSideProps(context) {
   const {
-    query: { page = 1, limit = 24 },
+    query: { page = 1, limit = 24, filter = 'freshness' },
   } = context;
 
   const products = await client.query({
@@ -37,8 +37,8 @@ export async function getServerSideProps(context) {
       offset: (parseInt(page) - 1) * parseInt(limit),
       categoryId: 4209,
       limit: parseInt(limit),
+      filter,
     },
-    fetchPolicy: 'network-only',
   });
 
   return {
