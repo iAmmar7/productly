@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import { useEffect } from 'react';
 import { motion, LayoutGroup } from 'framer-motion';
 
+import { usePagination } from '../../hooks';
 import { Icon } from '../Icon';
 import PageButton from './PageButton';
-import { usePagination } from '../../hooks';
 
 function Pagination(props) {
   const { value, totalPages, onChange } = props;

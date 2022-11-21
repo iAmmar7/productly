@@ -14,8 +14,6 @@ function Products(props) {
     query: { limit = 24, page = 1 },
   } = router;
 
-  console.log(products, products?.data?.products?.itemCount);
-
   const animationStart = () => setIsLoading(true);
 
   const animationEnd = () => setIsLoading(false);
@@ -47,7 +45,7 @@ function Products(props) {
         <h2 className='sr-only'>Product listing</h2>
         <Listing products={products} />
       </section>
-      <section className='flex items-center justify-between my-4 mt-8'>
+      <section className='flex items-center justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
         <h2 className='sr-only'>Pagination</h2>
         <Pagination
           value={page}

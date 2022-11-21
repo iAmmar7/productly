@@ -21,8 +21,6 @@ const usePagination = (props) => {
     return Array.from({ length: 5 }, (_, n) => n + 1);
   }, [currentPage, totalPages]);
 
-  console.log('total', totalPages, currentPages);
-
   const handleChangePage = useCallback(
     (pageNum) => () => {
       setCurrentPage(pageNum);
