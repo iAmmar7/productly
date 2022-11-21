@@ -3,11 +3,7 @@ import { RestLink } from 'apollo-link-rest';
 
 // Set `RestLink` with your endpoint
 const restLink = new RestLink({
-  uri: 'https://asos2.p.rapidapi.com/',
-  headers: {
-    'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY,
-    'X-RapidAPI-Host': 'asos2.p.rapidapi.com',
-  },
+  uri: 'https://dummyjson.com/',
 });
 
 // Setup your client

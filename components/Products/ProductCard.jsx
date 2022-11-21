@@ -21,24 +21,22 @@ function ProductCard(props) {
     >
       <figure className='h-[420px] relative block overflow-hidden'>
         <Image
-          src={`https://${data.imageUrl}`}
+          src={data.thumbnail}
           alt='prod image'
           fill
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           priority
           className='rounded-md transition-transform duration-1000 ease-in-out group-hover:scale-125 overflow-hidden object-center'
         />
-        <figcaption>{data.name}</figcaption>
+        <figcaption>{data.title}</figcaption>
       </figure>
       <div className='text-center flex flex-col gap-y-1 py-2 px-1'>
-        <p className='leading-tight'>{data.name}</p>
-        <p className='text-primary font-bold'>{data.brandName}</p>
+        <p className='leading-tight'>{data.title}</p>
+        <p className='text-primary font-bold'>{data.brand}</p>
         <div className='flex items-center justify-center gap-x-2'>
-          <p>{data.price.current.text}</p>
-          {data.price.previous.value && <p className='line-through text-red-500'>{data.price.previous.text}</p>}
+          <p>${data.price}</p>
         </div>
       </div>
-      {data.price.previous.value && <span className='absolute top-3 -left-2 bg-red-500 px-4 -rotate-45'>Sale</span>}
       <span className='absolute top-3 right-2'>
         <button onClick={handleToggleFavorites}>
           {isFavorite ? (

@@ -27,17 +27,14 @@ export default Home;
 
 export async function getServerSideProps(context) {
   const {
-    query: { page = 1, limit = 24, filter = 'freshness' },
+    query: { page = 1, limit = 24 },
   } = context;
 
   const products = await client.query({
     query: PRODUCTS,
     variables: {
-      store: 'US',
-      offset: (parseInt(page) - 1) * parseInt(limit),
-      categoryId: 4209,
+      skip: (parseInt(page) - 1) * parseInt(limit),
       limit: parseInt(limit),
-      filter,
     },
   });
 

@@ -80,7 +80,7 @@ function Products(props) {
         <h2 className='sr-only'>Pagination</h2>
         <Pagination
           value={page}
-          totalPages={Math.ceil((products?.data?.products?.itemCount || 0) / parseInt(limit))}
+          totalPages={Math.ceil((products?.data?.products?.total || 0) / parseInt(limit))}
           onChange={onPageChange}
         />
         <div className='flex items-center gap-x-2'>
