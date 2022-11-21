@@ -7,7 +7,8 @@ import PageButton from './PageButton';
 import { usePagination } from '../../hooks';
 
 function Pagination(props) {
-  const { currentPage: currentPageProp = 1, totalPages = 10, onChange } = props;
+  const { value, totalPages, onChange } = props;
+
   const {
     currentPage,
     currentPages,
@@ -16,11 +17,12 @@ function Pagination(props) {
     handleLastPage,
     handleFirstPage,
     handlePrevPage,
-  } = usePagination(currentPageProp, totalPages);
+  } = usePagination({ value, totalPages });
 
   useEffect(() => {
+    if (currentPage === value) return;
     onChange && onChange(currentPage);
-  }, [currentPage, onChange]);
+  }, [currentPage, value, onChange]);
 
   return (
     <LayoutGroup>
@@ -39,12 +41,12 @@ function Pagination(props) {
         {currentPages.map((page) => (
           <li key={page} className='p-0 m-0'>
             <PageButton
-              className={clsx('relative', currentPage === page ? 'text-black' : 'text-white')}
+              className={clsx('relative w-8', currentPage === page ? 'text-black' : 'text-white')}
               onClick={handleChangePage(page)}
             >
               {currentPage === page && (
                 <motion.span
-                  className='absolute bg-white h-8 w-6 -z-10'
+                  className='absolute bg-white h-8 w-8 -z-10'
                   layoutId='pagination'
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}

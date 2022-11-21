@@ -28,6 +28,10 @@ const SelectBox = (props) => {
   }, [handleToggle, isOpen, ref]);
 
   const handleChange = (opt) => () => {
+    if (value === opt) {
+      handleToggle();
+      return;
+    }
     setValue(opt);
     onChange && onChange(opt);
     handleToggle();

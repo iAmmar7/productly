@@ -1,27 +1,27 @@
 import { useMemo, useCallback, useState } from 'react';
-import { slice } from '../lib/utils';
 
 const usePagination = (props) => {
-  const { currentPage: currentPageProp = 1, totalPages = 10 } = props;
-  const [currentPage, setCurrentPage] = useState(currentPageProp);
-
-  const totalPagesView = useMemo(() => Array.from({ length: totalPages }, (_, n) => n + 1), [totalPages]);
+  const { value = 1, totalPages = 10 } = props;
+  const [currentPage, setCurrentPage] = useState(value);
 
   const currentPages = useMemo(() => {
-    if (totalPages <= 5) return totalPagesView;
+    if (totalPages <= 5) return Array.from({ length: totalPages }, (_, n) => n + 1);
 
-    if (currentPage >= totalPages - 1) {
-      const range = slice(totalPagesView, totalPages - 5, totalPages);
+    if (totalPages <= currentPage + 2) {
+      return Array.from({ length: 5 }, (_, n) => totalPages - n).reverse();
+    }
+
+    if (currentPage > 3 && totalPages > currentPage + 2) {
+      const left = Array.from({ length: 2 }, (_, n) => n + currentPage - 2);
+      const right = Array.from({ length: 2 }, (_, n) => n + currentPage + 1);
+      const range = [...left, currentPage, ...right];
       return range;
     }
 
-    const left = currentPage - 2;
-    const start = left > 0 ? left : 1;
-    const right = start + 4;
-    const end = right < totalPages ? right : totalPages;
-    const range = slice(totalPagesView, start - 1, end);
-    return range;
-  }, [currentPage, totalPages, totalPagesView]);
+    return Array.from({ length: 5 }, (_, n) => n + 1);
+  }, [currentPage, totalPages]);
+
+  console.log('total', totalPages, currentPages);
 
   const handleChangePage = useCallback(
     (pageNum) => () => {
@@ -31,16 +31,18 @@ const usePagination = (props) => {
   );
 
   const handleNextPage = useCallback(() => {
+    if (currentPage === totalPages) return;
     setCurrentPage((prevPage) => prevPage + 1);
-  }, []);
+  }, [currentPage, totalPages]);
 
   const handleLastPage = useCallback(() => {
     setCurrentPage(totalPages);
   }, [totalPages]);
 
   const handlePrevPage = useCallback(() => {
+    if (currentPage === 1) return;
     setCurrentPage((prevPage) => prevPage - 1);
-  }, []);
+  }, [currentPage]);
 
   const handleFirstPage = useCallback(() => {
     setCurrentPage(1);

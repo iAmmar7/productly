@@ -25,10 +25,19 @@ function Home(props) {
 
 export default Home;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const {
+    query: { page = 1, limit = 24 },
+  } = context;
+
   const products = await client.query({
     query: PRODUCTS,
-    variables: { store: 'US', offset: 0, categoryId: 4209, limit: 24 },
+    variables: {
+      store: 'US',
+      offset: (parseInt(page) - 1) * parseInt(limit),
+      categoryId: 4209,
+      limit: parseInt(limit),
+    },
     fetchPolicy: 'network-only',
   });
 

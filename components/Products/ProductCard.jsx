@@ -49,7 +49,7 @@ function ProductCard(props) {
           ) : (
             <Icon
               icon='ri-heart-line'
-              className='text-red-500 text-xl hover:opacity-80 transition-all duration-150 ease-in-out'
+              className='text-primary text-xl hover:opacity-80 transition-all duration-150 ease-in-out'
             />
           )}
         </button>
