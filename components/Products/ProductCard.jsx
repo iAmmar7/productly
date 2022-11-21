@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import Image from 'next/image';
 
-import Icon from '../Icon';
+import { Icon } from '../Icon';
 
 function ProductCard(props) {
   const { data } = props;

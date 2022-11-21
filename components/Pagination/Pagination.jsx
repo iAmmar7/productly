@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useEffect } from 'react';
 import { motion, LayoutGroup } from 'framer-motion';
 
-import Icon from '../Icon';
+import { Icon } from '../Icon';
 import PageButton from './PageButton';
 import { usePagination } from '../../hooks';
 
