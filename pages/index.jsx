@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 
 import client from '../apollo-client';
 import { PRODUCTS } from '../graphql/queries';
-import Products from '../components/Products';
+import { Products } from '../components/Products';
 
 function Home(props) {
   const { products } = props;

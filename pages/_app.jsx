@@ -1,6 +1,7 @@
 import { Inter, Permanent_Marker } from '@next/font/google';
 import { ApolloProvider } from '@apollo/client';
 
+import 'remixicon/fonts/remixicon.css';
 import '../styles/globals.css';
 import client from '../apollo-client';
 import { BaseLayout } from '../layout';
