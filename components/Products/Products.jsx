@@ -35,27 +35,43 @@ function Products(props) {
       router.events.off('routeChangeComplete', animationEnd);
       router.events.off('routeChangeError', animationEnd);
     };
-  }, []);
+  }, [router.events]);
 
-  const onPerPageChange = useCallback((page) => {
-    router.replace({ pathname: '/', query: { ...router.query, limit: page } });
-  }, []);
+  const onPerPageChange = useCallback(
+    (newLimit) => {
+      console.log('onPerPageChange');
+      router.replace({ pathname: '/', query: { ...router.query, limit: newLimit, page: 1 } });
+    },
+    [router]
+  );
 
-  const onPageChange = useCallback((page) => {
-    router.replace({ pathname: '/', query: { ...router.query, page } });
-  }, []);
+  const onPageChange = useCallback(
+    (newPage) => {
+      console.log('onPageChange');
+      router.replace({ pathname: '/', query: { ...router.query, page: newPage } });
+    },
+    [router]
+  );
 
   const onPerRowChange = useCallback((newGrid) => {
     setGrid(newGrid);
   }, []);
 
-  const onFilterChange = useCallback((newFilter) => {
-    router.replace({ pathname: '/', query: { ...router.query, filter: newFilter.value } });
-  }, []);
+  const onFilterChange = useCallback(
+    (newFilter) => {
+      router.replace({ pathname: '/', query: { ...router.query, filter: newFilter.value } });
+    },
+    [router]
+  );
 
   return (
     <div className='relative pb-6 px-2'>
       {isLoading && <Loader />}
+      <section className='mt-16'>
+        <h2 className='text-xl'>
+          Category: <span className='font-bold italic'>Technology</span>
+        </h2>
+      </section>
       <section className='flex items-center justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
         <h2 className='sr-only'>Product filters</h2>
         <div className='hidden lg:flex items-center gap-x-2'>
@@ -79,7 +95,7 @@ function Products(props) {
       <section className='flex items-center justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
         <h2 className='sr-only'>Pagination</h2>
         <Pagination
-          value={page}
+          value={parseInt(page)}
           totalPages={Math.ceil((products?.data?.products?.total || 0) / parseInt(limit))}
           onChange={onPageChange}
         />

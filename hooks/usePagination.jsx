@@ -1,8 +1,12 @@
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 
 const usePagination = (props) => {
-  const { value = 1, totalPages = 10 } = props;
+  const { value = 1, totalPages = 10, onChange } = props;
   const [currentPage, setCurrentPage] = useState(value);
+
+  useEffect(() => {
+    setCurrentPage(value);
+  }, [value]);
 
   const currentPages = useMemo(() => {
     if (totalPages <= 5) return Array.from({ length: totalPages }, (_, n) => n + 1);
@@ -24,27 +28,32 @@ const usePagination = (props) => {
   const handleChangePage = useCallback(
     (pageNum) => () => {
       setCurrentPage(pageNum);
+      onChange(pageNum);
     },
-    []
+    [onChange]
   );
 
   const handleNextPage = useCallback(() => {
     if (currentPage === totalPages) return;
     setCurrentPage((prevPage) => prevPage + 1);
-  }, [currentPage, totalPages]);
+    onChange(currentPage + 1);
+  }, [currentPage, onChange, totalPages]);
 
   const handleLastPage = useCallback(() => {
     setCurrentPage(totalPages);
-  }, [totalPages]);
+    onChange(totalPages);
+  }, [onChange, totalPages]);
 
   const handlePrevPage = useCallback(() => {
     if (currentPage === 1) return;
     setCurrentPage((prevPage) => prevPage - 1);
-  }, [currentPage]);
+    onChange(currentPage - 1);
+  }, [currentPage, onChange]);
 
   const handleFirstPage = useCallback(() => {
     setCurrentPage(1);
-  }, []);
+    onChange(1);
+  }, [onChange]);
 
   return {
     currentPage,

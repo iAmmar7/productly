@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useEffect } from 'react';
+import { memo } from 'react';
 import { motion, LayoutGroup } from 'framer-motion';
 
 import { usePagination } from '../../hooks';
@@ -17,12 +17,7 @@ function Pagination(props) {
     handleLastPage,
     handleFirstPage,
     handlePrevPage,
-  } = usePagination({ value, totalPages });
-
-  useEffect(() => {
-    if (currentPage === value) return;
-    onChange && onChange(currentPage);
-  }, [currentPage, value, onChange]);
+  } = usePagination({ value, totalPages, onChange });
 
   return (
     <LayoutGroup>
@@ -46,7 +41,7 @@ function Pagination(props) {
             >
               {currentPage === page && (
                 <motion.span
-                  className='absolute bg-white h-8 w-8 -z-10'
+                  className='absolute bg-white h-8 w-full -z-10'
                   layoutId='pagination'
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -73,4 +68,7 @@ function Pagination(props) {
   );
 }
 
-export default Pagination;
+export default memo(Pagination, (prevProps, nextProps) => {
+  if (prevProps.value !== nextProps.value || prevProps.totalPages !== nextProps.totalPages) return false;
+  return true;
+});

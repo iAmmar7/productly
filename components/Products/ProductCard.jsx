@@ -32,7 +32,7 @@ function ProductCard(props) {
       </figure>
       <div className='text-center flex flex-col gap-y-1 py-2 px-1'>
         <p className='leading-tight'>{data.title}</p>
-        <p className='text-primary font-bold'>{data.brand}</p>
+        <p className='text-primary font-bold font-marker'>{data.brand}</p>
         <div className='flex items-center justify-center gap-x-2'>
           <p>${data.price}</p>
         </div>
