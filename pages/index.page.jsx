@@ -23,9 +23,7 @@ function Home(props) {
         <meta content='Product listing challenge' property='og:description' />
       </Head>
       <AdBanner data={banner} />
-      {/* <div className='container w-full mx-auto pt-16 min-h-screen relative'> */}
       <Products products={products} />
-      {/* </div> */}
     </Fragment>
   );
 }

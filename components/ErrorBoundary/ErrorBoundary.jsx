@@ -23,6 +23,7 @@ class ErrorBoundary extends React.Component {
           <Link
             href='/'
             type='button'
+            title='Home'
             className='border border-muted px-6 py-2 rounded-md hover:bg-white hover:text-black
             hover:border-black transition-all duration-150 ease-linear disabled:opacity-60 disabled:bg-black
             disabled:text-white disabled:border-white focus:outline-none focus:ring-1 focus:ring-primary
