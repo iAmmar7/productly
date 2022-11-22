@@ -52,6 +52,7 @@ const SelectBox = (props) => {
             'bg-black relative w-full border border-white rounded-md shadow-sm px-2 sm:px-3 py-1 sm:py-[6px] text-left hover:bg-white hover:text-black hover:border-black transition-all duration-150 ease-linear disabled:opacity-60 disabled:bg-black disabled:text-white disabled:border-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
           }
           aria-haspopup='listbox'
+          title={id}
           aria-expanded='true'
           aria-labelledby='listbox-label'
           onClick={handleToggle}

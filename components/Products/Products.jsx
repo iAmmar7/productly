@@ -100,7 +100,7 @@ function Products(props) {
         <div className='hidden sm:flex items-center gap-x-2'>
           <span>Show</span>
           <SelectBox
-            id='page'
+            id='limit'
             value={limit}
             options={[12, 24, 36, 48, 60]}
             menuPlacement='top'
