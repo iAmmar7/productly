@@ -14,7 +14,7 @@ function AdBanner(props) {
 
   return (
     <AnimatePresence initial={true}>
-      {visible && data.thumb && (
+      {visible && data?.thumb && (
         <motion.section
           key='ad'
           initial='visible'

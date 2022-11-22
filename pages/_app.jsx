@@ -1,7 +1,8 @@
 import { Inter, Permanent_Marker } from '@next/font/google';
 import { ApolloProvider } from '@apollo/client';
-
+import { ErrorBoundary } from '../components/ErrorBoundary';
 import 'remixicon/fonts/remixicon.css';
+
 import '../styles/globals.css';
 import client from '../config/apollo-client';
 import { BaseLayout } from '../layout';
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }) {
     <ApolloProvider client={client}>
       <div className={`${inter.variable} ${marker.variable} font-sans`}>
         <BaseLayout>
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </BaseLayout>
       </div>
     </ApolloProvider>
