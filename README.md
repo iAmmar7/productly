@@ -35,6 +35,10 @@ yarn test
 - Filter by category features.
 - Unit test cases for a few components.
 
+## Possible improvements
+- Write more test cases and increase the unit test coverage.
+- On-demand ISR for advertisement banner update.
+
 ## Technologies
 
 Tools and technologies used in this project
