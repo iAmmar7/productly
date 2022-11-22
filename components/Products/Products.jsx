@@ -55,19 +55,29 @@ function Products(props) {
       {isLoading && <Loader />}
       <section className='mt-10 sm:mt-14'>
         <h2 className='text-lg sm:text-xl'>
-          Selected category: <span className='font-bold italic'>{capitalize(category ?? 'all')}</span>
+          Selected category:{' '}
+          <span className='font-bold italic' data-testid='category'>
+            {capitalize(category ?? 'all')}
+          </span>
         </h2>
       </section>
       <section className='flex items-center justify-end lg:justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
         <h2 className='sr-only'>Product filters</h2>
         <div className='hidden lg:flex items-center gap-x-2'>
           <span>Product</span>
-          <SelectBox value={grid} options={[1, 2, 3, 4, 5]} onChange={onPerRowChange} />
+          <SelectBox
+            id='grid'
+            value={grid}
+            options={[1, 2, 3, 4, 5]}
+            onChange={onPerRowChange}
+            className='min-w-[50px]'
+          />
           <span>per row</span>
         </div>
         <div className='flex items-center gap-x-2 text-sm sm:text-base'>
           <span>Category</span>
           <SelectBox
+            id='category'
             value={category ?? 'all'}
             options={['all', ...(data?.categories || [])]}
             onChange={onCategoryChange}
@@ -90,6 +100,7 @@ function Products(props) {
         <div className='hidden sm:flex items-center gap-x-2'>
           <span>Show</span>
           <SelectBox
+            id='page'
             value={limit}
             options={[12, 24, 36, 48, 60]}
             menuPlacement='top'

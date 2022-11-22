@@ -13,6 +13,8 @@ function ProductCard(props) {
   return (
     <motion.li
       className='rounded-md shadow-2xl cursor-pointer group relative overflow-hidden text-sm sm:text-base'
+      role='listitem'
+      data-testid='product-item'
       initial={{ scale: 0 }}
       animate={{ scale: 1, transition: { ease: 'easeInOut', duration: 0.5 } }}
       exit={{ scale: 0, transition: { ease: 'easeInOut', duration: 0.5 } }}

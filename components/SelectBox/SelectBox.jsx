@@ -6,7 +6,7 @@ import { Icon } from '../Icon';
 import { isEmpty, isObject } from '../../lib/utils';
 
 const SelectBox = (props) => {
-  const { value: valueProps, options, onChange, menuPlacement = 'bottom', disabled, className } = props;
+  const { id, value: valueProps, options, onChange, menuPlacement = 'bottom', disabled, className } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(valueProps);
@@ -44,7 +44,7 @@ const SelectBox = (props) => {
   const modName = isObject(value) ? value.name : value;
 
   return (
-    <div ref={ref}>
+    <div ref={ref} id={id}>
       <div className={clsx('relative', className)}>
         <button
           type='button'
