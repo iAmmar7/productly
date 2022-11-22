@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
 
-import client from '../apollo-client';
+import client from '../config/apollo-client';
 import { PRODUCTS, PRODUCTS_BY_CATEGORIES } from '../graphql/queries';
 import { Products } from '../components/Products';
 import { AdBanner } from '../components/AdBanner';

@@ -3,7 +3,7 @@ import { ApolloProvider } from '@apollo/client';
 
 import 'remixicon/fonts/remixicon.css';
 import '../styles/globals.css';
-import client from '../apollo-client';
+import client from '../config/apollo-client';
 import { BaseLayout } from '../layout';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
