@@ -5,10 +5,12 @@ import client from '../config/apollo-client';
 import { PRODUCTS, PRODUCTS_BY_CATEGORIES } from '../graphql/queries';
 import { Products } from '../components/Products';
 import { AdBanner } from '../components/AdBanner';
-import { isEmpty } from '../lib/utils';
+import { isEmpty, getRandomNumber } from '../lib/utils';
 
 function Home(props) {
-  const { products } = props;
+  const { products, banner, error } = props;
+
+  // TODO: Handle error from the server
 
   return (
     <Fragment>
@@ -20,7 +22,7 @@ function Home(props) {
         <meta content='Product listing challenge' name='description' />
         <meta content='Product listing challenge' property='og:description' />
       </Head>
-      <AdBanner placement='top' />
+      <AdBanner data={banner} />
       <Products products={products} />
     </Fragment>
   );
@@ -33,28 +35,46 @@ export async function getServerSideProps(context) {
     query: { page = 1, limit = 24, category },
   } = context;
 
-  let products = {};
+  try {
+    let products = {};
 
-  if (!isEmpty(category)) {
-    products = await client.query({
-      query: PRODUCTS_BY_CATEGORIES,
-      variables: {
-        category,
+    if (!isEmpty(category)) {
+      products = await client.query({
+        query: PRODUCTS_BY_CATEGORIES,
+        variables: {
+          category,
+        },
+      });
+    } else {
+      products = await client.query({
+        query: PRODUCTS,
+        variables: {
+          skip: (parseInt(page) - 1) * parseInt(limit),
+          limit: parseInt(limit),
+        },
+      });
+    }
+
+    // For advertisement banner; consider this a CMS call to fetch the banner image
+    const unsplash = await fetch(
+      `https://api.unsplash.com/photos/random?client_id=${process.env.UNSPLASH_ACCESS_KEY}`,
+      { method: 'GET', 'User-Agent': '*' }
+    );
+    const unsplashImage = await unsplash.json();
+
+    const bannerPlacement = ['top', 'middle', 'bottom'][getRandomNumber(0, 2)];
+
+    return {
+      props: {
+        products,
+        banner: { ...(unsplashImage?.urls || {}), placement: bannerPlacement },
       },
-    });
-  } else {
-    products = await client.query({
-      query: PRODUCTS,
-      variables: {
-        skip: (parseInt(page) - 1) * parseInt(limit),
-        limit: parseInt(limit),
+    };
+  } catch (err) {
+    return {
+      props: {
+        error: 'Oops! Something went wrong... .reload might help?',
       },
-    });
+    };
   }
-
-  return {
-    props: {
-      products,
-    },
-  };
 }

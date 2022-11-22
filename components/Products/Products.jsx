@@ -53,7 +53,7 @@ function Products(props) {
   return (
     <div className='relative pb-6 px-2'>
       {isLoading && <Loader />}
-      <section className='mt-16'>
+      <section className='mt-10 sm:mt-14'>
         <h2 className='text-xl'>
           Category: <span className='font-bold italic'>{capitalize(category ?? 'all')}</span>
         </h2>

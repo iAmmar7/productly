@@ -1,18 +1,20 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 import { Icon } from '../Icon';
+import placementMapper from './placementMapper';
 
 function AdBanner(props) {
   const [visible, setVisible] = useState(true);
-  const { placement = 'top' } = props;
+  const { data } = props;
 
   const handleHideAd = () => setVisible(false);
 
   return (
     <AnimatePresence initial={true}>
-      {visible && (
+      {visible && data.thumb && (
         <motion.section
           key='ad'
           initial='visible'
@@ -25,16 +27,20 @@ function AdBanner(props) {
           transition={{ duration: 0.5 }}
           className={clsx(
             'absolute w-full left-1/2 transform -translate-x-1/2 h-60 bg-primary z-50 rounded-md shadow-md',
-            placement === 'top' && 'top-20',
-            placement === 'middle' && 'top-1/2',
-            placement === 'bottom' && 'bottom-28'
+            placementMapper(data?.placement)
           )}
         >
           <div className='relative'>
             <h2 className='sr-only'>Advertisement Banner</h2>
-            <button className='absolute top-0 right-0' onClick={handleHideAd}>
+            <div className='h-60 relative block overflow-hidden'>
+              <Image src={data?.full} fill alt='advertisement' className='object-cover' priority />
+            </div>
+            <button className='absolute top-0 right-0 m-2' onClick={handleHideAd}>
               <Icon icon='ri-close-line' className='text-3xl' />
             </button>
+            <p className='absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-3xl font-bold font-marker animate-pulse'>
+              Advertisement banner
+            </p>
           </div>
         </motion.section>
       )}
