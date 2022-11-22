@@ -10,7 +10,7 @@ import { isEmpty, getRandomNumber } from '../lib/utils';
 function Home(props) {
   const { products, banner, error } = props;
 
-  // TODO: Handle error from the server
+  if (error) throw error;
 
   return (
     <Fragment>
