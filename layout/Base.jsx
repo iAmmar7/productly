@@ -9,7 +9,7 @@ function Base(props) {
   return (
     <Fragment>
       <Header />
-      <main className='container w-full mx-auto pt-16 min-h-screen'>{children}</main>
+      <main className='container w-full mx-auto pt-16 min-h-screen relative'>{children}</main>
       <Footer />
     </Fragment>
   );

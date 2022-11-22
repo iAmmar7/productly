@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import client from '../apollo-client';
 import { PRODUCTS, PRODUCTS_BY_CATEGORIES } from '../graphql/queries';
 import { Products } from '../components/Products';
+import { AdBanner } from '../components/AdBanner';
 import { isEmpty } from '../lib/utils';
 
 function Home(props) {
@@ -16,6 +17,8 @@ function Home(props) {
         <meta name='description' content='Product listing challenge' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
+      <AdBanner placement='top' />
 
       <Products products={products} />
     </Fragment>
