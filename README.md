@@ -10,7 +10,7 @@ Product Listing page with server-side rendering
 yarn install
 ```
 
-2. Run deployment server
+2. Update the .env and run deployment server
 ```bash
 yarn dev
 ```
