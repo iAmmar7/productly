@@ -14,12 +14,13 @@ function Home(props) {
     <Fragment>
       <Head>
         <title>Productly</title>
-        <meta name='description' content='Product listing challenge' />
         <link rel='icon' href='/favicon.ico' />
+        <meta name='description' content='Product listing challenge' />
+        <meta content='Productly' property='og:title' />
+        <meta content='Product listing challenge' name='description' />
+        <meta content='Product listing challenge' property='og:description' />
       </Head>
-
       <AdBanner placement='top' />
-
       <Products products={products} />
     </Fragment>
   );
