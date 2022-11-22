@@ -1,41 +1,24 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import { useQuery } from '@apollo/client';
 
 import { Pagination } from '../Pagination';
 import { Loader } from '../Loader';
 import { SelectBox } from '../SelectBox';
+import { CATEGORIES } from '../../graphql/queries';
+import { capitalize } from '../../lib/utils';
+import { useRouteTransition } from '../../hooks';
 import Listing from './Listing';
-
-const FILTERS = [
-  { name: 'Newest first', value: 'freshness' },
-  { name: 'Price low to high', value: 'pricedesc' },
-  { name: 'Price high to low', value: 'priceasc' },
-];
 
 function Products(props) {
   const { products } = props;
-  const [isLoading, setIsLoading] = useState(false);
   const [grid, setGrid] = useState(4);
   const router = useRouter();
   const {
-    query: { limit = 24, page = 1, filter = 'freshness' },
+    query: { limit = 24, page = 1, category },
   } = router;
-
-  const animationStart = () => setIsLoading(true);
-
-  const animationEnd = () => setIsLoading(false);
-
-  useEffect(() => {
-    router.events.on('routeChangeStart', animationStart);
-    router.events.on('routeChangeComplete', animationEnd);
-    router.events.on('routeChangeError', animationEnd);
-
-    return () => {
-      router.events.off('routeChangeStart', animationStart);
-      router.events.off('routeChangeComplete', animationEnd);
-      router.events.off('routeChangeError', animationEnd);
-    };
-  }, [router.events]);
+  const { data, loading, error } = useQuery(CATEGORIES);
+  const { isLoading } = useRouteTransition();
 
   const onPerPageChange = useCallback(
     (newLimit) => {
@@ -57,9 +40,13 @@ function Products(props) {
     setGrid(newGrid);
   }, []);
 
-  const onFilterChange = useCallback(
-    (newFilter) => {
-      router.replace({ pathname: '/', query: { ...router.query, filter: newFilter.value } });
+  const onCategoryChange = useCallback(
+    (newCategory) => {
+      if (newCategory === 'all') {
+        router.replace({ pathname: '/', query: { page: 1 } });
+        return;
+      }
+      router.replace({ pathname: '/', query: { ...router.query, page: 1, category: newCategory } });
     },
     [router]
   );
@@ -69,7 +56,7 @@ function Products(props) {
       {isLoading && <Loader />}
       <section className='mt-16'>
         <h2 className='text-xl'>
-          Category: <span className='font-bold italic'>Technology</span>
+          Category: <span className='font-bold italic'>{capitalize(category ?? 'all')}</span>
         </h2>
       </section>
       <section className='flex items-center justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
@@ -80,17 +67,19 @@ function Products(props) {
           <span>per row</span>
         </div>
         <div className='hidden lg:flex items-center gap-x-2'>
-          <span>Sort by</span>
+          <span>Category</span>
           <SelectBox
-            value={FILTERS.find((filt) => filt.value === filter)}
-            options={FILTERS}
-            onChange={onFilterChange}
+            value={category ?? 'all'}
+            options={['all', ...(data?.categories || [])]}
+            onChange={onCategoryChange}
+            className='min-w-[130px]'
+            disabled={error || loading}
           />
         </div>
       </section>
-      <section className='mt-10'>
+      <section className='mt-10 min-h-[700px]'>
         <h2 className='sr-only'>Product listing</h2>
-        <Listing products={products} grid={grid} />
+        <Listing products={products} grid={grid} isLoading={products?.data?.loading} />
       </section>
       <section className='flex items-center justify-between my-4 mt-8 border-b border-t border-muted py-3 px-2'>
         <h2 className='sr-only'>Pagination</h2>

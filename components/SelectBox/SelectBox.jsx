@@ -6,13 +6,16 @@ import { Icon } from '../Icon';
 import { isEmpty, isObject } from '../../lib/utils';
 
 const SelectBox = (props) => {
-  const { value: valueProps, options, onChange, menuPlacement = 'bottom' } = props;
+  const { value: valueProps, options, onChange, menuPlacement = 'bottom', disabled, className } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(valueProps);
   const ref = useRef();
 
-  const handleToggle = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+  const handleToggle = useCallback(() => {
+    if (disabled) return;
+    setIsOpen(!isOpen);
+  }, [disabled, isOpen]);
 
   useEffect(() => {
     const mutableRef = ref;
@@ -42,14 +45,17 @@ const SelectBox = (props) => {
 
   return (
     <div ref={ref}>
-      <div className='relative'>
+      <div className={clsx('relative', className)}>
         <button
           type='button'
-          className='bg-black relative w-full border border-white rounded-md shadow-sm pl-3 pr-8 py-[6px] text-left hover:bg-white hover:text-black hover:border-black transition-all duration-150 ease-linear disabled:opacity-60 disabled:bg-black disabled:text-white disabled:border-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
+          className={
+            'bg-black relative w-full border border-white rounded-md shadow-sm pl-3 pr-8 py-[6px] text-left hover:bg-white hover:text-black hover:border-black transition-all duration-150 ease-linear disabled:opacity-60 disabled:bg-black disabled:text-white disabled:border-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
+          }
           aria-haspopup='listbox'
           aria-expanded='true'
           aria-labelledby='listbox-label'
           onClick={handleToggle}
+          disabled={disabled}
         >
           <span className='truncate'>{modName ?? 'Select'}</span>
           <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none flex-col'>
