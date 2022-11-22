@@ -1,13 +1,12 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/client';
 
 import { Pagination } from '../Pagination';
 import { Loader } from '../Loader';
 import { SelectBox } from '../SelectBox';
-import { CATEGORIES } from '../../graphql/queries';
 import { capitalize } from '../../lib/utils';
 import { useRouteTransition } from '../../hooks';
+import { useCategory } from '../../resources';
 import Listing from './Listing';
 
 function Products(props) {
@@ -17,7 +16,7 @@ function Products(props) {
   const {
     query: { limit = 24, page = 1, category },
   } = router;
-  const { data, loading, error } = useQuery(CATEGORIES);
+  const { data, loading, error } = useCategory();
   const { isLoading } = useRouteTransition();
 
   const onPerPageChange = useCallback(
