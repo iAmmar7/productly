@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['pages.jsx'],
+  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js', 'api.tsx', 'api.ts'],
   reactStrictMode: true,
   images: {
     domains: ['i.dummyjson.com', 'images.unsplash.com'],
