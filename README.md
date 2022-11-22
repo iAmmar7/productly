@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Productly
 
-## Getting Started
+Product Listing page with server-side rendering
 
-First, run the development server:
+## How to run
+
+1. First, install the dependencies:
 
 ```bash
-npm run dev
-# or
+yarn install
+```
+
+2. Update the .env and run deployment server
+```bash
 yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Additionally, you can run the test case using
+```bash
+yarn test
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Features based on the requirements
+- UI with mobile first CSS using Tailwind.
+- [Fake API](https://dummyjson.com/docs/products) to fetch products with pagination.
+- Page limit and pagination feature with server-side data.
+- Fetch product API on server-side using **getServerSideProps**.
+- Fetch categories API on client-side using **apollo useQuery**.
+- For advertisement banner; to mock the actual CMS, I am fetching a image from [unsplash](https://unsplash.com/documentation) and passing a random position (top | middle | bottom). Client can update the advertisement banner by updating it in the CMS.
+- 2 columns layout on mobile view.
+- Option to change the number of columns on desktop view.
+- Sort option is not provided by this fake API.
+- Filter by category features.
+- Unit test cases for a few components.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Possible improvements
+- Write more test cases and increase the unit test coverage.
+- On-demand ISR for advertisement banner update.
 
-## Learn More
+## Technologies
 
-To learn more about Next.js, take a look at the following resources:
+Tools and technologies used in this project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next JS](https://nextjs.org)
+- [React JS](https://reactjs.org)
+- [Apollo Client](https://www.apollographql.com/docs/react)
+- [Tailwind](https://tailwindcss.com)
+- [Framer Motion](https://www.framer.com/motion)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [JEST](https://jestjs.io)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Deployed on Vercel
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out https://productly-taupe.vercel.app/
