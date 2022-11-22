@@ -12,14 +12,14 @@ function ProductCard(props) {
 
   return (
     <motion.li
-      className='rounded-md shadow-2xl cursor-pointer group relative overflow-hidden'
+      className='rounded-md shadow-2xl cursor-pointer group relative overflow-hidden text-sm sm:text-base'
       initial={{ scale: 0 }}
       animate={{ scale: 1, transition: { ease: 'easeInOut', duration: 0.5 } }}
       exit={{ scale: 0, transition: { ease: 'easeInOut', duration: 0.5 } }}
       viewport={{ once: true }}
       layout
     >
-      <figure className='h-[420px] relative block overflow-hidden'>
+      <figure className='h-[230px] sm:h-[340px] lg:h-[420px] relative block overflow-hidden'>
         <Image
           src={data.thumbnail}
           alt='prod image'

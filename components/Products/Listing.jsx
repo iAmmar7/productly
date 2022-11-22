@@ -13,7 +13,7 @@ function Listing(props) {
       {isLoading ? (
         <Skeleton grid={grid} />
       ) : (
-        <ol className={clsx('grid gap-x-4 gap-y-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3', gridMapper(grid))}>
+        <ol className={clsx('grid gap-x-2 sm:gap-x-4 gap-y-4 sm:gap-y-6 grid-cols-2 md:grid-cols-3', gridMapper(grid))}>
           {(products?.data?.products?.products || []).map((prod) => (
             <ProductCard key={prod.id} data={prod} />
           ))}

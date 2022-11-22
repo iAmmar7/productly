@@ -26,13 +26,13 @@ function AdBanner(props) {
           }}
           transition={{ duration: 0.5 }}
           className={clsx(
-            'absolute w-full left-1/2 transform -translate-x-1/2 h-60 bg-primary z-50 rounded-md shadow-md',
+            'absolute w-full left-1/2 transform -translate-x-1/2 h-48 sm:h-60 bg-primary z-50 rounded-md shadow-md',
             placementMapper(data?.placement)
           )}
         >
           <div className='relative'>
             <h2 className='sr-only'>Advertisement Banner</h2>
-            <div className='h-60 relative block overflow-hidden'>
+            <div className='h-48 sm:h-60 relative block overflow-hidden'>
               <Image src={data?.full} fill alt='advertisement' className='object-cover' priority />
             </div>
             <button className='absolute top-0 right-0 m-2' onClick={handleHideAd}>

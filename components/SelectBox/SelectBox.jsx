@@ -49,7 +49,7 @@ const SelectBox = (props) => {
         <button
           type='button'
           className={
-            'bg-black relative w-full border border-white rounded-md shadow-sm pl-3 pr-8 py-[6px] text-left hover:bg-white hover:text-black hover:border-black transition-all duration-150 ease-linear disabled:opacity-60 disabled:bg-black disabled:text-white disabled:border-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
+            'bg-black relative w-full border border-white rounded-md shadow-sm px-2 sm:px-3 py-1 sm:py-[6px] text-left hover:bg-white hover:text-black hover:border-black transition-all duration-150 ease-linear disabled:opacity-60 disabled:bg-black disabled:text-white disabled:border-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
           }
           aria-haspopup='listbox'
           aria-expanded='true'
@@ -70,7 +70,7 @@ const SelectBox = (props) => {
               animate={{ opacity: 1, transition: { ease: 'easeInOut', duration: 0.2 } }}
               exit={{ opacity: 0, transition: { ease: 'easeInOut', duration: 0.2 } }}
               className={clsx(
-                'absolute z-10 my-1 min-w-full bg-white shadow-lg max-h-80 rounded-md text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm',
+                'absolute z-10 my-1 min-w-full bg-white shadow-lg max-h-80 rounded-md text-sm sm:text-base ring-1 ring-black ring-opacity-5 focus:outline-none',
                 menuPlacement === 'top' && 'bottom-10'
               )}
               role='listbox'
@@ -89,7 +89,7 @@ const SelectBox = (props) => {
                     return (
                       <li
                         key={modOptValue}
-                        className='text-gray-900 cursor-pointer select-none relative py-2 px-3 flex items-center hover:bg-gray-50 transition-all duration-150 ease-in-out rounded-md'
+                        className='text-gray-900 cursor-pointer select-none relative py-1 sm:py-2 px-2 sm:px-3 flex items-center hover:bg-gray-50 transition-all duration-150 ease-in-out rounded-md'
                         id={modOptValue}
                         role='option'
                         tabIndex={1}
